@@ -22,7 +22,7 @@ use Nette;
  * @property-read \ArrayIterator $controls
  * @property-read Form $form
  */
-class Container extends Nette\ComponentModel\Container implements \ArrayAccess
+class Container extends Nette\ComponentModel\Container implements IValidatable, \ArrayAccess
 {
 	/** @var callable[]  function(Container $sender); Occurs when the form is validated */
 	public $onValidate;
@@ -136,7 +136,7 @@ class Container extends Nette\ComponentModel\Container implements \ArrayAccess
 	 */
 	public function validate(array $controls = NULL)
 	{
-		foreach ($controls === NULL ? $this->getComponents() : $controls as $control) {
+		foreach ($controls === NULL ? $this->getComponents(FALSE, 'Nette\Forms\IValidatable') : $controls as $control) {
 			$control->validate();
 		}
 		foreach ($this->onValidate ?: array() as $handler) {

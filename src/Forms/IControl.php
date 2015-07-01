@@ -15,7 +15,7 @@ use Nette;
  *
  * @author     David Grudl
  */
-interface IControl
+interface IControl extends IValidatable
 {
 
 	/**
@@ -30,11 +30,6 @@ interface IControl
 	 * @return mixed
 	 */
 	function getValue();
-
-	/**
-	 * @return void
-	 */
-	function validate();
 
 	/**
 	 * Returns errors corresponding to control.
